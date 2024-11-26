@@ -1,3 +1,218 @@
-p{
-    color: aqua;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Montserrat;
+}
+
+body {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.main {
+    display: grid;
+    height: 100vh;
+    width: 100vw;
+    grid-template-areas: "global-nav global-nav global-nav"
+        "left-sidebar    main-view         right-sidebar"
+        "now-playing-bar now-playing-bar now-playing-bar";
+    grid-template-columns: auto 52fr;
+    grid-template-rows: auto 91fr auto;
+    gap: 8px;
+}
+
+.topNav {
+    margin: 0 0 0 8px;
+    grid-area: global-nav;
+    height: 64px;
+    width: 1344px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logoContainer {
+    height: 64px;
+    width: 72px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.SpotifyLogo {
+    justify-self: center;
+    align-self: center;
+    position: absolute;
+    scale: .035;
+    cursor: pointer;
+}
+
+.navMainContainer {
+    height: 64px;
+    width: 1344px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+}
+
+.navMain {
+    height: 64px;
+    width: 546px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    justify-self: center;
+}
+
+.homeCircle {
+    position: relative;
+    height: 48px;
+    width: 48px;
+    background-color: #1f1f1f;
+    border-radius: 50%;
+    margin-inline-start: 8px;
+    cursor: pointer;
+
+    &:hover {
+        scale: 1.04;
+    }
+}
+
+.homeIcon {
+    scale: .5;
+}
+
+.homeActive {
+    fill: #ffffff;
+}
+
+.homeDeactive {
+    scale: .45;
+    fill: #1f1f1f;
+    stroke: #b3b3b3;
+    stroke-width: 2px;
+}
+
+.navSearchBox {
+    height: 48px;
+    width: 474px;
+    background-color: #1f1f1f;
+    border-radius: 25px 25px 25px 25px;
+    display: flex;
+    justify-content: space-evenly;
+    cursor: pointer;
+    transition: all .22s ease-in;
+
+    &:hover {
+        background-color: #2a2a2a;
+        box-shadow: inset 0 0 1px 1px #3d3c3d;
+    }
+
+    &.navSearchBox:hover .searchInput {
+        background-color: #2a2a2a;
+        /* box-shadow: inset 0 0 1px 1px #3d3c3d ; */
+    }
+
+    &.navSearchBox:hover .searchIcon {
+        fill: #ffffff;
+    }
+}
+
+.searchIcon {
+    scale: .5;
+    cursor: pointer;
+    transition: all .22s ease-in;
+}
+
+.searchActive {
+    fill: #ffffff;
+}
+
+.searchDeactive {
+    fill: #b3b3b3;
+}
+
+.searchInput {
+    all: unset;
+    height: 46px;
+    margin: 1px 0 1px 0;
+    width: 362px;
+    background-color: #1f1f1f;
+    font-weight: 550;
+    color: #b3b3b3;
+    cursor: pointer;
+    transition: all .22s ease-in;
+}
+
+.browseFilesIcon {
+    cursor: pointer;
+
+}
+
+.browseActive {
+    scale: .5;
+    fill: #ffffff;
+    transition: all .22s ease-in;
+
+    &:hover {
+        scale: .53;
+    }
+}
+
+.browseDeactive {
+    scale: .45;
+    fill: #1f1f1f;
+    stroke: #b3b3b3;
+    stroke-width: 2px;
+    transition: all .22s ease-in;
+
+    &:hover {
+        scale: .48;
+        stroke: #ffffff;
+    }
+}
+
+.userBox {
+    height: 48px;
+    width: 104px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.notification {
+    height: 48px;
+    width: 48px;
+    cursor: pointer;
+}
+
+.notificationIcon {
+    scale: .334;
+    fill: #b3b3b3;
+    transition: all .22s ease-in;
+
+    &:hover {
+        fill: #ffffff;
+    }
+}
+
+.account {
+    height: 48px;
+    width: 48px;
+    background-color: #1f1f1f;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    &:hover {
+        scale: 1.03;
+    }
+}
+
+.userPfp {
+    scale: .5;
+    border-radius: 50%;
 }
