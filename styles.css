@@ -1,11 +1,14 @@
-* {
+*{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: Montserrat;
+    --iconDeactiveColor: #b3b3b3;
+    --iconBGcolor: #1f1f1f;
 }
 
-body {
+html , body {
+    height: 100%;
     background-color: #000000;
     color: #ffffff;
 }
@@ -14,6 +17,7 @@ body {
     display: grid;
     height: 100vh;
     width: 100vw;
+    padding: 8px;
     grid-template-areas: "global-nav global-nav global-nav"
         "left-sidebar    main-view         right-sidebar"
         "now-playing-bar now-playing-bar now-playing-bar";
@@ -23,10 +27,9 @@ body {
 }
 
 .topNav {
-    margin: 0 0 0 8px;
     grid-area: global-nav;
-    height: 64px;
-    width: 1344px;
+    height: 48px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -50,8 +53,7 @@ body {
 
 .navMainContainer {
     height: 64px;
-    width: 1344px;
-    position: absolute;
+    width: auto;
     display: flex;
     justify-content: center;
 }
@@ -69,7 +71,7 @@ body {
     position: relative;
     height: 48px;
     width: 48px;
-    background-color: #1f1f1f;
+    background-color: var(--iconBGcolor);
     border-radius: 50%;
     margin-inline-start: 8px;
     cursor: pointer;
@@ -89,15 +91,15 @@ body {
 
 .homeDeactive {
     scale: .45;
-    fill: #1f1f1f;
-    stroke: #b3b3b3;
+    fill: var(--iconBGcolor);
+    stroke: var(--iconDeactiveColor);
     stroke-width: 2px;
 }
 
 .navSearchBox {
     height: 48px;
     width: 474px;
-    background-color: #1f1f1f;
+    background-color: var(--iconBGcolor);
     border-radius: 25px 25px 25px 25px;
     display: flex;
     justify-content: space-evenly;
@@ -130,7 +132,7 @@ body {
 }
 
 .searchDeactive {
-    fill: #b3b3b3;
+    fill: var(--iconDeactiveColor);
 }
 
 .searchInput {
@@ -138,9 +140,9 @@ body {
     height: 46px;
     margin: 1px 0 1px 0;
     width: 362px;
-    background-color: #1f1f1f;
+    background-color: var(--iconBGcolor);
     font-weight: 550;
-    color: #b3b3b3;
+    color: var(--iconDeactiveColor);
     cursor: pointer;
     transition: all .22s ease-in;
 }
@@ -162,8 +164,8 @@ body {
 
 .browseDeactive {
     scale: .45;
-    fill: #1f1f1f;
-    stroke: #b3b3b3;
+    fill: var(--iconBGcolor);
+    stroke: var(--iconDeactiveColor);
     stroke-width: 2px;
     transition: all .22s ease-in;
 
@@ -189,7 +191,7 @@ body {
 
 .notificationIcon {
     scale: .334;
-    fill: #b3b3b3;
+    fill: var(--iconDeactiveColor);
     transition: all .22s ease-in;
 
     &:hover {
@@ -200,7 +202,7 @@ body {
 .account {
     height: 48px;
     width: 48px;
-    background-color: #1f1f1f;
+    background-color: var(--iconBGcolor);
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -215,4 +217,381 @@ body {
 .userPfp {
     scale: .5;
     border-radius: 50%;
+}
+
+
+/* left Sidebar */
+.sideBarContainer {
+    height: auto;
+    width: 72px;
+    overflow: hidden;
+    background-color: #121212;
+    border-radius: 8px;
+    grid-area: left-sidebar;
+    display: flex;
+    flex-direction: column;
+}
+
+.libraryBox {
+    height: 60px;
+    width: 72px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.libraryIcon {
+    fill: #ffffff;
+    scale: .3334;
+}
+
+.libItemOutBox {
+    height: calc(100% - 60px);
+    max-height: calc(100% - 60px);
+    overflow-y: overlay;
+    overflow-x: hidden;
+    width: 100%;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+
+    /* scrollBar styling */
+    &.libItemOutBox::-webkit-scrollbar {
+        width: 7px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: none;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: hsla(0, 0%, 100%, .3);
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: hsla(0, 0%, 100%, .5);
+    }
+
+    &::-webkit-scrollbar-thumb:active {
+        background: hsla(0, 0%, 100%, .7);
+    }
+}
+
+.libItemInBox {
+    height: 800px;
+    width: 64px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.libItem {
+    height: 64px;
+    width: 64px;
+    background-color: green;
+}
+
+.libItem1Img {
+    height: 48px;
+    width: 48px;
+    box-sizing: content-box;
+    padding: 8px;
+}
+
+/* Main View */
+.mainViewContainer {
+    height: auto;
+    overflow: auto;
+    width: auto;
+    border-radius: 8px;
+    background-color: #121212;
+    grid-area: main-view;
+    align-content: flex-start;
+
+    /* scrollBar styling */
+    &::-webkit-scrollbar {
+        width: 12px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: none;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: hsla(0, 0%, 100%, .3);
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: hsla(0, 0%, 100%, .5);
+    }
+
+    &::-webkit-scrollbar-thumb:active {
+        background: hsla(0, 0%, 100%, .7);
+    }
+}
+
+.mainView {
+    width: 100%;
+    height: 2000px;
+    overflow-y: auto;
+}
+
+/* Player */
+.playerContainer {
+    height: 72px;
+    width: 100%;
+    grid-area: now-playing-bar;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nowPlayingBox {
+    height: 61px;
+    width: 395.188px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 8px;
+}
+
+.nowPlayingCover {
+    height: 61px;
+    width: 56px;
+    background-color: #000000;
+}
+
+.toggleNowPlaying {
+    border: none;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.nowPlayingImg {
+    height: 56px;
+    width: 56px;
+    margin-bottom: 5px;
+}
+
+.nowPlayingNameBox {
+    display: grid;
+    column-gap: 8px;
+    margin: 0 8px;
+    grid-template: "pretitle pretitle"
+        "title title"
+        "badges subtitle" /auto 1fr;
+}
+
+.titleBox {
+    grid-area: title;
+
+    &.titleBox:hover .titleText {
+        text-decoration: underline;
+    }
+}
+
+.titleText {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 550;
+    font-size: .845rem;
+}
+
+.artistBox {
+    grid-area: subtitle;
+    grid-column-start: badges;
+
+    &.artistBox:hover .artistText {
+        color: #ffffff;
+        text-decoration: underline;
+    }
+}
+
+.artistText {
+    text-decoration: none;
+    font-weight: 500;
+    color: #b3b3b3;
+    font-size: .7rem;
+}
+
+.playerControlsBox {
+    height: 57px;
+    width: 537.594px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.generalControlsBox {
+    height: 32px;
+    margin-bottom: 8px;
+    width: 537.594px;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    gap: 16px;
+}
+
+.bothControls {
+    height: 100%;
+    width: 236.797px;
+    display: flex;
+    gap: 8px;
+}
+
+.iconBox {
+    height: 32px;
+    width: 32px;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.playerIcons {
+    height: 16px;
+    width: 16px;
+    fill: var(--iconDeactiveColor);
+
+    &:hover {
+        fill: #ffffff;
+        scale: 1.05;
+    }
+}
+
+.leftControls {
+    justify-content: flex-end;
+}
+
+.rightControls {
+    justify-content: flex-start;
+}
+
+.playPause {
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background-color: transparent;
+
+    &:hover {
+        scale: 1.05;
+    }
+}
+
+.playCircle {
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.playIcon {
+    height: 16px;
+    width: 16px;
+}
+
+.progressBarBox {
+    height: 17px;
+    width: 537.594px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.currentDurationBox,
+.maxDurationBox {
+    height: 100%;
+    width: 40px;
+    color: var(--iconDeactiveColor);
+    font-size: .75rem;
+}
+
+.currentDurationBox {
+    text-align: right;
+}
+
+.maxDurationBox {
+    text-align: left;
+}
+
+.track {
+    --progressPoint: 50%;
+    height: 4px;
+    width: 441.594px;
+    background-color: #4d4c4d;
+    border-radius: 2px;
+    position: relative;
+
+    &.track:hover .progress {
+        background-color: #2eb85c;
+    }
+
+    &.track:hover .thumb {
+        visibility: visible;
+    }
+}
+
+.progress {
+    height: 100%;
+    min-width: 0%;
+    width: var(--progressPoint);
+    max-width: 100%;
+    background-color: #ffffff;
+    border-radius: 2px;
+}
+
+.thumb {
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    position: absolute;
+    top: -4px;
+    left: calc(var(--progressPoint) - 1%);
+    visibility: hidden;
+}
+
+.otherControlsBox {
+    height: 32px;
+    width: 403.188px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.volumeContainer {
+    display: flex;
+    align-items: center;
+}
+
+.volumeControlBox {
+    height: 12px;
+    width: 93px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.volumeInput {
+    height: 4px;
+    width: 93px;
+
+    &.volumeInput::-webkit-slider-thumb {
+        visibility: hidden;
+    }
+
+    &.volumeInput:hover::-webkit-slider-thumb {
+        visibility: visible;
+    }
+
 }
