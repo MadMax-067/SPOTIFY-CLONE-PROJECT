@@ -1,3 +1,8 @@
+// Server SETUP
+
+// Server SETUP
+
+// MAIN
 const track = document.getElementById("track");
 const progress = document.getElementById("progress");
 const thumb = document.getElementById("thumb");
@@ -36,4 +41,19 @@ track.addEventListener("mousemove", (e) => {
 track.addEventListener("mouseup", (e) => {
     isDragging = false;
 });
+// MAIN
 
+
+let songId= "J1ejXBn3";
+async function getSongById(songId) {
+    const url = `https://saavn.dev/api/songs/${songId}`;
+    const options = { method: 'GET' };
+  
+    try {
+      const response = await fetch(url, options);
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+};
