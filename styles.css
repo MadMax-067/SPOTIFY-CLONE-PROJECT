@@ -338,6 +338,119 @@ body {
     overflow-y: auto;
 }
 
+.searchView {
+    width: 100%;
+    height: auto;
+    overflow-y: auto;
+    display: none;
+}
+
+.searchResultsHeading {
+    height: 50px;
+    width: 100%;
+    font-weight: bold;
+    font-size: 2rem;
+    padding: 10px 0 0 10px;
+}
+
+.resultElementsBox {
+    height: calc(100% - 50px);
+    width: 100%;
+    /* background-color: green; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 8px;
+}
+
+.resultElements {
+    height: 50px;
+    width: 95%;
+    background-color: #181818;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.resultIconBox {
+    height: 40px;
+    width: 40px;
+    background-color: black;
+    margin-left: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    transition: transform 0.3s ease;
+    position: relative;
+
+    &:hover {
+        transform: scale(1.1);
+    }
+
+    &.resultIconBox:hover .resultPlayIconBox {
+        visibility: visible;
+    }
+
+}
+
+.resultPlayIconBox {
+    position: absolute;
+    fill: #ffffff;
+    height: 40px;
+    width: 40px;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, .6);
+    visibility: hidden;
+}
+
+.resultPlayIconBox>svg {
+    scale: .5;
+}
+
+.resultIcon {
+    height: 100%;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+.songDetailsBox {
+    height: 40px;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.songTitle {
+    font-weight: bold;
+    font-size: .9rem;
+    cursor: pointer;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.artistName {
+    color: var(--iconDeactiveColor);
+    font-size: .8rem;
+    cursor: pointer;
+
+    &:hover {
+        color: #ffffff;
+        text-decoration: underline;
+    }
+}
+
+
 /* Player */
 .playerContainer {
     height: 72px;
@@ -526,7 +639,7 @@ body {
 }
 
 .track {
-    --progressPoint: 50%;
+    --progressPoint: 0%;
     height: 4px;
     width: 441.594px;
     background-color: #4d4c4d;
@@ -603,13 +716,4 @@ body {
 .volumeInput {
     height: 4px;
     width: 93px;
-
-    &.volumeInput::-webkit-slider-thumb {
-        visibility: hidden;
-    }
-
-    &.volumeInput:hover::-webkit-slider-thumb {
-        visibility: visible;
-    }
-
 }
