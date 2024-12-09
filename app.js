@@ -18,6 +18,13 @@ const currentDurationBox = document.getElementById("currentDurationBox");
 const maxDurationBox = document.getElementById("maxDurationBox");
 const volumeInput = document.getElementById("volumeInput");
 const volumeIconBox = document.getElementById("volumeIconBox");
+const rightSideBarContainer = document.getElementById("rightSideBarContainer");
+const topTitleBox = document.getElementById("topTitleBox");
+const rightTitle = document.getElementById("rightTitle");
+const rightFirstArtist = document.getElementById("rightFirstArtist");
+const rightSecondArtist = document.getElementById("rightSecondArtist");
+const sidebarClose = document.getElementById("closeBox");
+const sidebarOpen = document.getElementById("sidebarOpen");
 
 let songName;
 let songId;
@@ -188,6 +195,25 @@ function displaySearchResult() {
     });
 };
 
+function updateRightSideBar(song) {
+    //changes to right side bar
+    rightSideBarContainer.style.display = "block"; //setting it visible
+    rightSideBarContainer.style.backgroundImage = `url("${song.image[2].url}")`; // setting bg image to right side container
+    topTitleBox.textContent = song.name;
+    rightTitle.textContent = song.name;
+    rightFirstArtist.textContent = song.artists.all[0].name;
+    rightSecondArtist.textContent = song.artists.all[2].name;
+};
+
+// Right SideBar Close
+sidebarClose.addEventListener("click", () => {
+    rightSideBarContainer.style.display = "none";
+});
+
+//Right SideBar Open
+sidebarOpen.addEventListener("click", () => {
+    rightSideBarContainer.style.display = "block";
+})
 
 async function getSongsByName(songName) {
     const url = `https://saavn.dev/api/search/songs?query=${songName}`;
@@ -217,6 +243,8 @@ async function getSongById(songId) {
         nowPlayingImg.src = song.image[2].url;//changing now playing song icon to clicked song
         titleText.textContent = song.name;//changing now playing song title to clicked song
         artistText.textContent = song.artists.all[0].name;//changing now playing song artist to clicked song
+        //changes to right side bar
+        updateRightSideBar(song);
         //change to pause icon
         playCircle.innerHTML = '<svg id="playIcon" role="img" aria-hidden="true" viewBox="0 0 16 16" class="playIcon"><path d="M2.7 1a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7H2.7zm8 0a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7h-2.6z"></path></svg>';
         playingAudio.play();
