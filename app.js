@@ -290,3 +290,31 @@ volumeIconBox.addEventListener("click", () => {
         volumeIconBox.innerHTML = '<svg role="presentation" aria-label="Volume high" aria-hidden="false" id="volumeIcon" viewBox="0 0 16 16" class="volumeIcon playerIcons"><path d="M9.741.85a.75.75 0 0 1 .375.65v13a.75.75 0 0 1-1.125.65l-6.925-4a3.642 3.642 0 0 1-1.33-4.967 3.639 3.639 0 0 1 1.33-1.332l6.925-4a.75.75 0 0 1 .75 0zm-6.924 5.3a2.139 2.139 0 0 0 0 3.7l5.8 3.35V2.8l-5.8 3.35zm8.683 4.29V5.56a2.75 2.75 0 0 1 0 4.88z"></path><path d="M11.5 13.614a5.752 5.752 0 0 0 0-11.228v1.55a4.252 4.252 0 0 1 0 8.127v1.55z"></path></svg>';
     }
 });
+
+
+
+// Home Page Cards
+const songIdForCards = ["Paem2Kf1","Dcn2JX4y","6_Lkkdb","8KR1cpr8","n3D96OBP","sPjn5Gs1","fW-Mxsnu","mS0LY7W1","bj63WBUs","8Ti1DvzG","Yh4u0ibF","VToGp42K","O22XNaZG","StDihZvc","oXXeN4Gv","TtuJLWrj","H-56B2xz","uNWdki50","I7GH9AB-","VaNhRJHr","ZY-m2M7V","_J5iTI6U","nsMAIFmD","lvyoa4FM","WTXoYqCF","fad7sATd","J-G9voQa","dju4Cubp","JuFEzYZR","fbLZdM0I","bEsdIBIp","iE8z2T-c","XaFAVKX2","PX3J3pID","q-F_jCoF","ieScOYmG","X031nLVY","e9jds2zC","LKzeL12B","WGc8ueF_"];
+const homeCards = document.querySelectorAll(".shelfCard");
+
+async function setCardsData(card,songId){
+    const url = `https://saavn.dev/api/songs/${songId}`;
+    const options = { method: 'GET' };
+
+    try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        const song = data.data[0];
+        let cardImg = card.getElementsByClassName("shelfImg");
+        console.log(cardImg);
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+}
+
+//go through each cards on home
+homeCards.forEach((card,index)=>{
+    //set html attribute for each card with a song id
+    card.setAttribute("dataSongId",songIdForCards[index]);
+    // setCardsData(card,songIdForCards[index]);
+});
