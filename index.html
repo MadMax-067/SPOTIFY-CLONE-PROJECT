@@ -10,6 +10,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
+        <!-- color thief-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.2/color-thief.umd.js"></script>
 </head>
 
 <body>
@@ -77,7 +79,7 @@
                     <ul role="list" aria-label="Your Library" style="list-style: none;">
                         <li class="li1">
                             <div class="libItem1 libItem">
-                                <img src="/libItem1.webp" alt="" id="libItem1Img" class="libItem1Img">
+                                <img src="/nowPlaying.jpg" alt="" id="libItem1Img" class="libItem1Img">
                             </div>
                         </li>
                     </ul>
@@ -86,7 +88,7 @@
         </div>
 
         <!-- Main View -->
-        <div class="mainViewContainer">
+        <div id="mainViewContainer" class="mainViewContainer">
             <div class="stickyMainContainer">
                 <div class="stickyBox">
                     <div class="stickyContents">
@@ -99,7 +101,7 @@
             <main id="mainView" class="mainView">
                 <div class="userPlaylistContainer">
                     <div class="uPlaylistBox1 uPlaylistBox">
-                        <img src="/libItem1.webp" class="uPlaylistImg1 uPlaylistImg">
+                        <img crossorigin="anonymous" id="uPlaylistImg1" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTH5P2BW0w7KwbWhrw-oa17dNfbGfyTMgEumA&s" class="uPlaylistImg1 uPlaylistImg">
                         <p>Between the heavens and earth</p>
                         <span class="playPlaylist">
                             <svg id="playPlaylistIcon" role="img" aria-hidden="true" viewBox="0 0 16 16"
@@ -111,7 +113,7 @@
                         </span>
                     </div>
                     <div class="uPlaylistBox2 uPlaylistBox">
-                        <img src="/libItem1.webp" class="uPlaylistImg2 uPlaylistImg">
+                        <img crossorigin="anonymous" src="https://ew.com/thmb/IVjmtfkRu2ZP4GDYmiFkPUe7yTc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Weeknd-d4fb08e62a924691a18af068d9bfa972.jpg" class="uPlaylistImg2 uPlaylistImg">
                         <p>Other Playlist</p>
                         <span class="playPlaylist">
                             <svg id="playPlaylistIcon" role="img" aria-hidden="true" viewBox="0 0 16 16"
@@ -141,8 +143,8 @@
                                 </span>
                             </div>
                             <div class="shelfText1 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                         <div class="shelfCard[1,2] shelfCard">
@@ -157,8 +159,8 @@
                                 </span>
                             </div>
                             <div class="shelfText2 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                         <div class="shelfCard[1,3] shelfCard">
@@ -173,8 +175,8 @@
                                 </span>
                             </div>
                             <div class="shelfText3 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                         <div class="shelfCard[1,4] shelfCard">
@@ -189,8 +191,8 @@
                                 </span>
                             </div>
                             <div class="shelfText4 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                         <div class="shelfCard[1,5] shelfCard">
@@ -205,8 +207,8 @@
                                 </span>
                             </div>
                             <div class="shelfText5 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                         <div class="shelfCard[1,6] shelfCard">
@@ -221,8 +223,8 @@
                                 </span>
                             </div>
                             <div class="shelfText6 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                         <div class="shelfCard[1,7] shelfCard">
@@ -237,8 +239,8 @@
                                 </span>
                             </div>
                             <div class="shelfText7 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                         <div class="shelfCard[1,8] shelfCard">
@@ -253,8 +255,8 @@
                                 </span>
                             </div>
                             <div class="shelfText8 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                         <div class="shelfCard[1,9] shelfCard">
@@ -269,8 +271,8 @@
                                 </span>
                             </div>
                             <div class="shelfText9 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                         <div class="shelfCard[1,10] shelfCard">
@@ -285,8 +287,8 @@
                                 </span>
                             </div>
                             <div class="shelfText10 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                     </div>
@@ -309,8 +311,8 @@
                                 </span>
                             </div>
                             <div class="shelfText1 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                         <div class="shelfCard[2,2] shelfCard">
@@ -325,8 +327,8 @@
                                 </span>
                             </div>
                             <div class="shelfText2 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                         <div class="shelfCard[2,3] shelfCard">
@@ -341,8 +343,8 @@
                                 </span>
                             </div>
                             <div class="shelfText3 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                         <div class="shelfCard[2,4] shelfCard">
@@ -357,8 +359,8 @@
                                 </span>
                             </div>
                             <div class="shelfText4 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                         <div class="shelfCard[2,5] shelfCard">
@@ -373,8 +375,8 @@
                                 </span>
                             </div>
                             <div class="shelfText5 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                         <div class="shelfCard[2,6] shelfCard">
@@ -389,8 +391,8 @@
                                 </span>
                             </div>
                             <div class="shelfText6 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                         <div class="shelfCard[2,7] shelfCard">
@@ -405,8 +407,8 @@
                                 </span>
                             </div>
                             <div class="shelfText7 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                         <div class="shelfCard[2,8] shelfCard">
@@ -421,8 +423,8 @@
                                 </span>
                             </div>
                             <div class="shelfText8 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                         <div class="shelfCard[2,9] shelfCard">
@@ -437,8 +439,8 @@
                                 </span>
                             </div>
                             <div class="shelfText9 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                         <div class="shelfCard[2,10] shelfCard">
@@ -453,8 +455,8 @@
                                 </span>
                             </div>
                             <div class="shelfText10 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                     </div>
@@ -477,8 +479,8 @@
                                 </span>
                             </div>
                             <div class="shelfText1 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                         <div class="shelfCard[3,2] shelfCard">
@@ -493,8 +495,8 @@
                                 </span>
                             </div>
                             <div class="shelfText2 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                         <div class="shelfCard[3,3] shelfCard">
@@ -509,8 +511,8 @@
                                 </span>
                             </div>
                             <div class="shelfText3 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                         <div class="shelfCard[3,4] shelfCard">
@@ -525,8 +527,8 @@
                                 </span>
                             </div>
                             <div class="shelfText4 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                         <div class="shelfCard[3,5] shelfCard">
@@ -541,8 +543,8 @@
                                 </span>
                             </div>
                             <div class="shelfText5 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                         <div class="shelfCard[3,6] shelfCard">
@@ -557,8 +559,8 @@
                                 </span>
                             </div>
                             <div class="shelfText6 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                         <div class="shelfCard[3,7] shelfCard">
@@ -573,8 +575,8 @@
                                 </span>
                             </div>
                             <div class="shelfText7 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                         <div class="shelfCard[3,8] shelfCard">
@@ -589,8 +591,8 @@
                                 </span>
                             </div>
                             <div class="shelfText8 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                         <div class="shelfCard[3,9] shelfCard">
@@ -605,8 +607,8 @@
                                 </span>
                             </div>
                             <div class="shelfText9 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                         <div class="shelfCard[3,10] shelfCard">
@@ -621,8 +623,8 @@
                                 </span>
                             </div>
                             <div class="shelfText10 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                     </div>
@@ -645,8 +647,8 @@
                                 </span>
                             </div>
                             <div class="shelfText1 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                         <div class="shelfCard[4,2] shelfCard">
@@ -661,8 +663,8 @@
                                 </span>
                             </div>
                             <div class="shelfText2 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                         <div class="shelfCard[4,3] shelfCard">
@@ -677,8 +679,8 @@
                                 </span>
                             </div>
                             <div class="shelfText3 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                         <div class="shelfCard[4,4] shelfCard">
@@ -693,8 +695,8 @@
                                 </span>
                             </div>
                             <div class="shelfText4 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                         <div class="shelfCard[4,5] shelfCard">
@@ -709,8 +711,8 @@
                                 </span>
                             </div>
                             <div class="shelfText5 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                         <div class="shelfCard[4,6] shelfCard">
@@ -725,8 +727,8 @@
                                 </span>
                             </div>
                             <div class="shelfText6 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                         <div class="shelfCard[4,7] shelfCard">
@@ -741,8 +743,8 @@
                                 </span>
                             </div>
                             <div class="shelfText7 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                         <div class="shelfCard[4,8] shelfCard">
@@ -757,8 +759,8 @@
                                 </span>
                             </div>
                             <div class="shelfText8 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                         <div class="shelfCard[4,9] shelfCard">
@@ -773,8 +775,8 @@
                                 </span>
                             </div>
                             <div class="shelfText9 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                         <div class="shelfCard[4,10] shelfCard">
@@ -789,15 +791,15 @@
                                 </span>
                             </div>
                             <div class="shelfText10 shelfText">
-                                <div class="cardTitle">Running Up that Hill</div>
-                                <div class="cardDesc">Kate Bush</div>
+                                <div class="cardTitle">------</div>
+                                <div class="cardDesc">-------------</div>
                             </div>
                         </div>
                     </div>
                 </div>
             </main>
             <div id="searchView" class="searchView">
-                <div class="searchResultsHeading">Search Results</div>
+                <div id="searchResultsHeading" class="searchResultsHeading">Search Results</div>
                 <div id="resultElementsBox" class="resultElementsBox"></div>
             </div>
         </div>

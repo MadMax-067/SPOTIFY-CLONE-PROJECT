@@ -302,13 +302,29 @@ body {
     padding: 8px;
 }
 
+
+/* @property --startColor {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: rgba(18, 18, 18, 1);
+}
+
+@property --endColor {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: rgba(18, 18, 18, 1);
+} */
+
+
 /* Main View */
 .mainViewContainer {
+    --startColor: rgba(18, 18, 18, 1);
+    --endColor: rgba(18, 18, 18, 1);
     height: auto;
     overflow: auto;
     width: auto;
     border-radius: 8px;
-    background-color: #121212;
+    background: linear-gradient(180deg, var(--startColor) 0%, var(--endColor) 100%);
     grid-area: main-view;
     align-content: flex-start;
 
@@ -334,6 +350,7 @@ body {
     }
 }
 
+
 .stickyMainContainer {
     height: 64px;
     width: 100%;
@@ -342,6 +359,7 @@ body {
     align-items: center;
     position: sticky;
     top: 0;
+    z-index: 100;
 }
 
 .stickyBox {
@@ -544,7 +562,7 @@ body {
         background-color: #1e1e1e;
     }
 
-    &.shelfCard:hover .playCard{
+    &.shelfCard:hover .playCard {
         display: block;
     }
 }
@@ -556,13 +574,13 @@ body {
     min-width: 225px;
     border-radius: 6px;
     margin: 12px;
-    background-image: url(/libItem1.webp);
+    background-image: url(/nowPlaying.jpg);
     background-position: center;
     background-size: cover;
     position: relative;
 }
 
-.playCard{
+.playCard {
     height: 48px;
     width: 48px;
     border-radius: 50%;
@@ -578,14 +596,14 @@ body {
         scale: 1.05;
         background-color: #49e27f;
     }
-    
-    &:active{
+
+    &:active {
         scale: 0.9;
         background-color: #2dbb5c;
     }
 }
 
-.playCardIcon{
+.playCardIcon {
     scale: .4;
 }
 
@@ -604,6 +622,7 @@ body {
 }
 
 .cardDesc {
+    color: var(--iconDeactiveColor);
     font-size: .7rem;
     font-weight: 400;
 }
@@ -738,7 +757,7 @@ body {
 }
 
 .searchResultsHeading {
-    height: 50px;
+    height: auto;
     width: 100%;
     font-weight: bold;
     font-size: 2rem;

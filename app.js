@@ -5,8 +5,10 @@ const thumb = document.getElementById("thumb");
 const searchSongForm = document.getElementById("searchSong");
 const searchSpotify = document.getElementById("searchSpotify");
 const playingAudio = document.getElementById("playingAudio");
+const mainViewContainer = document.getElementById("mainViewContainer");
 const mainView = document.getElementById("mainView");
 const searchView = document.getElementById("searchView");
+const searchResultsHeading = document.getElementById("searchResultsHeading");
 const homeButton = document.getElementById("homeButton");
 const resultElementsBox = document.getElementById("resultElementsBox");
 const nowPlayingImg = document.getElementById("nowPlayingImg");
@@ -26,9 +28,15 @@ const rightSecondArtist = document.getElementById("rightSecondArtist");
 const sidebarClose = document.getElementById("closeBox");
 const sidebarOpen = document.getElementById("sidebarOpen");
 
+// Color Thief
+const colorThief = new ColorThief();
+//gradient primary color opacity
+const gradientOpacity = "0.23012955182072825";
+
+
 let songName;
 let songId;
-let searchResults;
+let searchResults = [];
 let songPlayUrl;
 
 let isDragging = false; // To track dragging state
@@ -113,7 +121,7 @@ searchSpotify.addEventListener("click", () => {
 // change to main View
 homeButton.addEventListener("click", () => {
     searchView.style.display = "none";
-    mainView.style.display = "block";
+    mainView.style.display = "flex";
 });
 
 
@@ -138,61 +146,80 @@ function displaySearchResult() {
         resultElementsBox.innerHTML = "";
         createdResultElements = [];
     }
-    // create each result Box
-    searchResults.forEach((song, index) => {
-        // play pause icon svg
-        playSVG = '<svg id="playIcon" role="img" aria-hidden="true" class="" viewBox="0 0 24 24"><path d="m7.05 3.606 13.49 7.788a.7.7 0 0 1 0 1.212L7.05 20.394A.7.7 0 0 1 6 19.788V4.212a.7.7 0 0 1 1.05 - .606z"></path></svg>'
-        pauseSVG = '<svg id="playIcon" role="img" aria-hidden="true" viewBox="0 0 16 16"><path d="M2.7 1a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7H2.7zm8 0a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7h-2.6z"></path></svg>';
+    //set no search results if array length is 0 and return
+    if (searchResults.length == 0) {
+        searchResultsHeading.textContent = "No Matching Results";
+        return;
+    } else {
 
-        let resultElement = document.createElement("div");
-        resultElement.id = `resultElement${index}`; //set id to each result box
-        resultElement.classList.add("resultElements"); //give class to result box
-        resultElementsBox.appendChild(resultElement); // append it to main result Container
+        searchResultsHeading.textContent = "Search Results";
 
-        //making box for album cover for each result
-        let resultIconBox = document.createElement("div"); // creating album box
-        resultIconBox.id = `resultIconBox${index}`;  //setting id
-        resultIconBox.classList.add("resultIconBox"); // class add for styling
-        resultElement.appendChild(resultIconBox); // adding album box to each result box
+        // create each result Box
+        searchResults.forEach((song, index) => {
+            // play pause icon svg
+            playSVG = '<svg id="playIcon" role="img" aria-hidden="true" class="" viewBox="0 0 24 24"><path d="m7.05 3.606 13.49 7.788a.7.7 0 0 1 0 1.212L7.05 20.394A.7.7 0 0 1 6 19.788V4.212a.7.7 0 0 1 1.05 - .606z"></path></svg>'
+            pauseSVG = '<svg id="playIcon" role="img" aria-hidden="true" viewBox="0 0 16 16"><path d="M2.7 1a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7H2.7zm8 0a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7h-2.6z"></path></svg>';
 
-        let resultIcon = document.createElement("img"); //adding img to album box
-        resultIcon.id = `resultIcon${index}`; // setting id
-        resultIcon.classList.add("resultIcon"); // class for styling 
-        resultIcon.src = song.image[1].url; // getting album cover from api
-        resultIconBox.appendChild(resultIcon); //appending image to album box
+            let resultElement = document.createElement("div");
+            resultElement.id = `resultElement${index}`; //set id to each result box
+            resultElement.classList.add("resultElements"); //give class to result box
+            resultElementsBox.appendChild(resultElement); // append it to main result Container
 
-        let resultPlayIconBox = document.createElement("div");//creating div for storing play icon
-        resultPlayIconBox.id = `resultPlayIconBox${index}`;//setting id
-        resultPlayIconBox.classList.add("resultPlayIconBox");//class for styling
-        //adding play icon svg to the box
-        resultPlayIconBox.innerHTML = playSVG;
-        resultIconBox.appendChild(resultPlayIconBox); //appending to Icon Box
+            //making box for album cover for each result
+            let resultIconBox = document.createElement("div"); // creating album box
+            resultIconBox.id = `resultIconBox${index}`;  //setting id
+            resultIconBox.classList.add("resultIconBox"); // class add for styling
+            resultElement.appendChild(resultIconBox); // adding album box to each result box
 
-        let songDetailsBox = document.createElement("div");// creating box for song title and artist
-        songDetailsBox.id = `songDetailsBox${index}`; //setting id
-        songDetailsBox.classList.add("songDetailsBox"); //class for styling
-        resultElement.appendChild(songDetailsBox); //appending to each result Box
+            let resultIcon = document.createElement("img"); //adding img to album box
+            resultIcon.id = `resultIcon${index}`; // setting id
+            resultIcon.classList.add("resultIcon"); // class for styling 
+            resultIcon.src = song.image[1].url; // getting album cover from api
+            resultIconBox.appendChild(resultIcon); //appending image to album box
 
-        let songTitle = document.createElement("div");//creating a box for song title
-        songTitle.textContent = song.name; //getting title from api
-        songTitle.id = `songTitle${index}`; //setting id
-        songTitle.classList.add("songTitle");//class for styling
-        songDetailsBox.appendChild(songTitle); // appending title to detail box
+            let resultPlayIconBox = document.createElement("div");//creating div for storing play icon
+            resultPlayIconBox.id = `resultPlayIconBox${index}`;//setting id
+            resultPlayIconBox.classList.add("resultPlayIconBox");//class for styling
+            //adding play icon svg to the box
+            resultPlayIconBox.innerHTML = playSVG;
+            resultIconBox.appendChild(resultPlayIconBox); //appending to Icon Box
 
-        let artistName = document.createElement("div");// creating a box for artist name
-        artistName.textContent = song.artists.all[0].name; //getting artist name from api
-        artistName.id = `artistName${index}`;//setting id
-        artistName.classList.add("artistName");//class for styling
-        songDetailsBox.appendChild(artistName);//appending artist name to song details
+            let songDetailsBox = document.createElement("div");// creating box for song title and artist
+            songDetailsBox.id = `songDetailsBox${index}`; //setting id
+            songDetailsBox.classList.add("songDetailsBox"); //class for styling
+            resultElement.appendChild(songDetailsBox); //appending to each result Box
 
-        resultElement.addEventListener("click", () => {
-            //change to pause icon
-            songId = song.id; //setting song id to clicked song
-            getSongById(songId);//calling song id function to play clicked song
+            let songTitle = document.createElement("div");//creating a box for song title
+            songTitle.textContent = song.name; //getting title from api
+            songTitle.id = `songTitle${index}`; //setting id
+            songTitle.classList.add("songTitle");//class for styling
+            songDetailsBox.appendChild(songTitle); // appending title to detail box
+
+            let artistName = document.createElement("div");// creating a box for artist name
+            artistName.textContent = song.artists.all[0].name; //getting artist name from api
+            artistName.id = `artistName${index}`;//setting id
+            artistName.classList.add("artistName");//class for styling
+            songDetailsBox.appendChild(artistName);//appending artist name to song details
+
+            resultElement.addEventListener("click", () => {
+                //change to pause icon
+                songId = song.id; //setting song id to clicked song
+                let currentSong;
+
+                getSongById(songId).then(song => {
+                    currentSong = song;
+                    updateRightSideBar(song);
+                    //play song
+                    playSong(currentSong);
+                });//calling song id function to play clicked song
+
+                //changes to right side bar
+
+            });
+
+            createdResultElements.push(resultElement);//pushing each result element to array to save them
         });
-
-        createdResultElements.push(resultElement);//pushing each result element to array to save them
-    });
+    };
 };
 
 function updateRightSideBar(song) {
@@ -202,7 +229,13 @@ function updateRightSideBar(song) {
     topTitleBox.textContent = song.name;
     rightTitle.textContent = song.name;
     rightFirstArtist.textContent = song.artists.all[0].name;
-    rightSecondArtist.textContent = song.artists.all[2].name;
+    if (song.artists.all.length > 2) {
+        rightSecondArtist.textContent = song.artists.all[2].name;
+    } else if (song.artists.all.length > 2) {
+        rightSecondArtist.textContent = song.artists.all[1].name;
+    } else {
+        rightSecondArtist.textContent = song.artists.all[0].name;
+    }
 };
 
 // Right SideBar Close
@@ -223,10 +256,12 @@ async function getSongsByName(songName) {
         const response = await fetch(url, options);
         const data = await response.json();
         searchResults = data.data.results;
+
         //calling function to display results
         displaySearchResult();
     } catch (error) {
         console.error(error);
+        searchResultsHeading.textContent = "Something seems wrong!😣";
     }
 }
 
@@ -237,17 +272,8 @@ async function getSongById(songId) {
     try {
         const response = await fetch(url, options);
         const data = await response.json();
-        const song = data.data[0];
-        songPlayUrl = data.data[0].downloadUrl[4].url;
-        playingAudio.setAttribute("src", songPlayUrl);
-        nowPlayingImg.src = song.image[2].url;//changing now playing song icon to clicked song
-        titleText.textContent = song.name;//changing now playing song title to clicked song
-        artistText.textContent = song.artists.all[0].name;//changing now playing song artist to clicked song
-        //changes to right side bar
-        updateRightSideBar(song);
-        //change to pause icon
-        playCircle.innerHTML = '<svg id="playIcon" role="img" aria-hidden="true" viewBox="0 0 16 16" class="playIcon"><path d="M2.7 1a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7H2.7zm8 0a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7h-2.6z"></path></svg>';
-        playingAudio.play();
+        const song = await data.data[0];
+        return song;
     } catch (error) {
         console.error('Error fetching data:', error);
     }
@@ -294,27 +320,57 @@ volumeIconBox.addEventListener("click", () => {
 
 
 // Home Page Cards
-const songIdForCards = ["Paem2Kf1","Dcn2JX4y","6_Lkkdb","8KR1cpr8","n3D96OBP","sPjn5Gs1","fW-Mxsnu","mS0LY7W1","bj63WBUs","8Ti1DvzG","Yh4u0ibF","VToGp42K","O22XNaZG","StDihZvc","oXXeN4Gv","TtuJLWrj","H-56B2xz","uNWdki50","I7GH9AB-","VaNhRJHr","ZY-m2M7V","_J5iTI6U","nsMAIFmD","lvyoa4FM","WTXoYqCF","fad7sATd","J-G9voQa","dju4Cubp","JuFEzYZR","fbLZdM0I","bEsdIBIp","iE8z2T-c","XaFAVKX2","PX3J3pID","q-F_jCoF","ieScOYmG","X031nLVY","e9jds2zC","LKzeL12B","WGc8ueF_"];
+const songIdForCards = ["Paem2Kf1", "Dcn2JX4y", "6_Lkkdb-", "8KR1cpr8", "n3D96OBP", "sPjn5Gs1", "fW-Mxsnu", "mS0LY7W1", "bj63WBUs", "8Ti1DvzG", "Yh4u0ibF", "VToGp42K", "O22XNaZG", "StDihZvc", "oXXeN4Gv", "TtuJLWrj", "H-56B2xz", "uNWdki50", "I7GH9AB-", "VaNhRJHr", "ZY-m2M7V", "_J5iTI6U", "nsMAIFmD", "lvyoa4FM", "WTXoYqCF", "fad7sATd", "J-G9voQa", "dju4Cubp", "JuFEzYZR", "fbLZdM0I", "bEsdIBIp", "iE8z2T-c", "XaFAVKX2", "PX3J3pID", "q-F_jCoF", "ieScOYmG", "X031nLVY", "e9jds2zC", "LKzeL12B", "WGc8ueF_"];
 const homeCards = document.querySelectorAll(".shelfCard");
 
-async function setCardsData(card,songId){
-    const url = `https://saavn.dev/api/songs/${songId}`;
-    const options = { method: 'GET' };
+async function setCardsData(card, songId) {
+    let currentSong;
 
-    try {
-        const response = await fetch(url, options);
-        const data = await response.json();
-        const song = data.data[0];
-        let cardImg = card.getElementsByClassName("shelfImg");
-        console.log(cardImg);
-    } catch (error) {
-        console.error('Error fetching data:', error);
+    getSongById(songId).then(song => {
+        currentSong = song;
+        console.log(currentSong);
+        
+        card.addEventListener("click", () => {
+            updateRightSideBar(currentSong);
+            playSong(currentSong);
+        });
     }
-}
+    );
+
+};
+
+function playSong(currentSong) {
+    songPlayUrl = currentSong.downloadUrl[4].url;
+    playingAudio.setAttribute("src", songPlayUrl);
+    nowPlayingImg.src = currentSong.image[2].url;//changing now playing song icon to clicked song
+    titleText.textContent = currentSong.name;//changing now playing song title to clicked song
+    artistText.textContent = currentSong.artists.all[0].name;//changing now playing song artist to clicked song
+    //change to pause icon
+    playCircle.innerHTML = '<svg id="playIcon" role="img" aria-hidden="true" viewBox="0 0 16 16" class="playIcon"><path d="M2.7 1a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7H2.7zm8 0a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7h-2.6z"></path></svg>';
+    playingAudio.play();
+};
+
+
 
 //go through each cards on home
-homeCards.forEach((card,index)=>{
+homeCards.forEach((card, index) => {
     //set html attribute for each card with a song id
-    card.setAttribute("dataSongId",songIdForCards[index]);
-    // setCardsData(card,songIdForCards[index]);
+    card.setAttribute("dataSongId", songIdForCards[index]);
+    setCardsData(card, songIdForCards[index]);
+});
+
+const playlistImageTest = document.querySelectorAll(".uPlaylistImg");
+let dominantColor;
+const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+const uPlaylistBox = document.querySelectorAll(".uPlaylistBox");
+uPlaylistBox.forEach(box => {
+    const img = box.children[0];
+    img.src = proxyUrl + img.src;
+    img.onload = () => {
+        dominantColor = colorThief.getColor(img);
+        const rgbColor = `rgba(${dominantColor.join(",")},${gradientOpacity})`;
+        box.addEventListener("mouseenter", () => {
+            mainViewContainer.style.setProperty("--startColor", rgbColor);
+        });
+    };
 });
