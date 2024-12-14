@@ -291,7 +291,7 @@ async function getSongsByName(songName) {
         searchResultsHeading.textContent = "Something seems wrong! 😣";
     }
 }
-
+// get by song id
 async function getSongById(songId) {
     const fullURL = `/api/search?id=${encodeURIComponent(songId)}`;
     
