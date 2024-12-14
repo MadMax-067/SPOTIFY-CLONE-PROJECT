@@ -499,6 +499,11 @@ body {
         scale: 1.05;
         background-color: #49e27f;
     }
+
+    &:active {
+        scale: 0.9;
+        background-color: #2dbb5c;
+    }
 }
 
 .playPlaylistIcon {
@@ -561,7 +566,7 @@ body {
     cursor: pointer;
 
     &:hover {
-        background-color: #1e1e1e;
+        background-color: rgba(255, 255, 255, .03);
     }
 
     &.shelfCard:hover .playCard {

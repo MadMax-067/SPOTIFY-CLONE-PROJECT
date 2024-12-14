@@ -158,86 +158,80 @@ function displaySearchResult() {
         resultElementsBox.innerHTML = "";
         createdResultElements = [];
     }
-    //set no search results if array length is 0 and return
-    if (searchResults.length == 0) {
-        searchResultsHeading.textContent = "No Matching Results";
-        return;
-    } else {
 
-        searchResultsHeading.textContent = "Search Results";
+    searchResultsHeading.textContent = "Search Results";
 
-        // create each result Box
-        searchResults.forEach((song, index) => {
-            // play pause icon svg
-            playSVG = '<svg id="playIcon" role="img" aria-hidden="true" class="" viewBox="0 0 24 24"><path d="m7.05 3.606 13.49 7.788a.7.7 0 0 1 0 1.212L7.05 20.394A.7.7 0 0 1 6 19.788V4.212a.7.7 0 0 1 1.05 - .606z"></path></svg>'
-            pauseSVG = '<svg id="playIcon" role="img" aria-hidden="true" viewBox="0 0 16 16"><path d="M2.7 1a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7H2.7zm8 0a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7h-2.6z"></path></svg>';
+    // create each result Box
+    searchResults.forEach((song, index) => {
+        // play pause icon svg
+        playSVG = '<svg id="playIcon" role="img" aria-hidden="true" class="" viewBox="0 0 24 24"><path d="m7.05 3.606 13.49 7.788a.7.7 0 0 1 0 1.212L7.05 20.394A.7.7 0 0 1 6 19.788V4.212a.7.7 0 0 1 1.05 - .606z"></path></svg>'
+        pauseSVG = '<svg id="playIcon" role="img" aria-hidden="true" viewBox="0 0 16 16"><path d="M2.7 1a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7H2.7zm8 0a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7h-2.6z"></path></svg>';
 
-            let resultElement = document.createElement("div");
-            resultElement.id = `resultElement${index}`; //set id to each result box
-            resultElement.classList.add("resultElements"); //give class to result box
-            resultElementsBox.appendChild(resultElement); // append it to main result Container
+        let resultElement = document.createElement("div");
+        resultElement.id = `resultElement${index}`; //set id to each result box
+        resultElement.classList.add("resultElements"); //give class to result box
+        resultElementsBox.appendChild(resultElement); // append it to main result Container
 
-            //making box for album cover for each result
-            let resultIconBox = document.createElement("div"); // creating album box
-            resultIconBox.id = `resultIconBox${index}`;  //setting id
-            resultIconBox.classList.add("resultIconBox"); // class add for styling
-            resultElement.appendChild(resultIconBox); // adding album box to each result box
+        //making box for album cover for each result
+        let resultIconBox = document.createElement("div"); // creating album box
+        resultIconBox.id = `resultIconBox${index}`;  //setting id
+        resultIconBox.classList.add("resultIconBox"); // class add for styling
+        resultElement.appendChild(resultIconBox); // adding album box to each result box
 
-            let resultIcon = document.createElement("img"); //adding img to album box
-            resultIcon.id = `resultIcon${index}`; // setting id
-            resultIcon.classList.add("resultIcon"); // class for styling 
-            resultIcon.src = song.image.replace(/150x150/,'500x500'); // getting album cover from api
-            resultIconBox.appendChild(resultIcon); //appending image to album box
+        let resultIcon = document.createElement("img"); //adding img to album box
+        resultIcon.id = `resultIcon${index}`; // setting id
+        resultIcon.classList.add("resultIcon"); // class for styling 
+        resultIcon.src = song.image.replace(/150x150/, '500x500'); // getting album cover from api
+        resultIconBox.appendChild(resultIcon); //appending image to album box
 
-            let resultPlayIconBox = document.createElement("div");//creating div for storing play icon
-            resultPlayIconBox.id = `resultPlayIconBox${index}`;//setting id
-            resultPlayIconBox.classList.add("resultPlayIconBox");//class for styling
-            //adding play icon svg to the box
-            resultPlayIconBox.innerHTML = playSVG;
-            resultIconBox.appendChild(resultPlayIconBox); //appending to Icon Box
+        let resultPlayIconBox = document.createElement("div");//creating div for storing play icon
+        resultPlayIconBox.id = `resultPlayIconBox${index}`;//setting id
+        resultPlayIconBox.classList.add("resultPlayIconBox");//class for styling
+        //adding play icon svg to the box
+        resultPlayIconBox.innerHTML = playSVG;
+        resultIconBox.appendChild(resultPlayIconBox); //appending to Icon Box
 
-            let songDetailsBox = document.createElement("div");// creating box for song title and artist
-            songDetailsBox.id = `songDetailsBox${index}`; //setting id
-            songDetailsBox.classList.add("songDetailsBox"); //class for styling
-            resultElement.appendChild(songDetailsBox); //appending to each result Box
+        let songDetailsBox = document.createElement("div");// creating box for song title and artist
+        songDetailsBox.id = `songDetailsBox${index}`; //setting id
+        songDetailsBox.classList.add("songDetailsBox"); //class for styling
+        resultElement.appendChild(songDetailsBox); //appending to each result Box
 
-            let songTitle = document.createElement("div");//creating a box for song title
-            songTitle.textContent = song.title; //getting title from api
-            songTitle.id = `songTitle${index}`; //setting id
-            songTitle.classList.add("songTitle");//class for styling
-            songDetailsBox.appendChild(songTitle); // appending title to detail box
+        let songTitle = document.createElement("div");//creating a box for song title
+        songTitle.textContent = song.title; //getting title from api
+        songTitle.id = `songTitle${index}`; //setting id
+        songTitle.classList.add("songTitle");//class for styling
+        songDetailsBox.appendChild(songTitle); // appending title to detail box
 
-            let artistName = document.createElement("div");// creating a box for artist name
-            artistName.textContent = song.subtitle; //getting artist name from api
-            artistName.id = `artistName${index}`;//setting id
-            artistName.classList.add("artistName");//class for styling
-            songDetailsBox.appendChild(artistName);//appending artist name to song details
+        let artistName = document.createElement("div");// creating a box for artist name
+        artistName.textContent = song.subtitle; //getting artist name from api
+        artistName.id = `artistName${index}`;//setting id
+        artistName.classList.add("artistName");//class for styling
+        songDetailsBox.appendChild(artistName);//appending artist name to song details
 
-            resultElement.addEventListener("click", () => {
-                //change to pause icon
-                songId = song.id;//setting song id to clicked song
-                let currentSong;
+        resultElement.addEventListener("click", () => {
+            //change to pause icon
+            songId = song.id;//setting song id to clicked song
+            let currentSong;
 
-                getSongById(songId).then(song => {
-                    currentSong = song;
-                    updateRightSideBar(song);
-                    //play song
-                    playSong(currentSong);
-                });//calling song id function to play clicked song
+            getSongById(songId).then(song => {
+                currentSong = song;
+                updateRightSideBar(song);
+                //play song
+                playSong(currentSong);
+            });//calling song id function to play clicked song
 
-                //changes to right side bar
+            //changes to right side bar
 
-            });
-
-            createdResultElements.push(resultElement);//pushing each result element to array to save them
         });
-    };
+
+        createdResultElements.push(resultElement);//pushing each result element to array to save them
+    });
 };
 
 function updateRightSideBar(song) {
     //changes to right side bar
     rightSideBarContainer.style.display = "block"; //setting it visible
-    rightSideBarContainer.style.backgroundImage = `url("${song.image.replace(/150x150/,'500x500')}")`; // setting bg image to right side container
+    rightSideBarContainer.style.backgroundImage = `url("${song.image.replace(/150x150/, '500x500')}")`; // setting bg image to right side container
     topTitleBox.textContent = song.song;
     rightTitle.textContent = song.song;
     rightFirstArtist.textContent = song.primary_artists;
@@ -260,26 +254,24 @@ sidebarOpen.addEventListener("click", () => {
 
 async function getSongsByName(songName) {
     const fullURL = `https://spotify-clone-api-theta.vercel.app/api/search?q=${encodeURIComponent(songName)}`;
-    
+
     try {
         const response = await fetch(fullURL, {
-            method: "GET",
-            headers: {
-                "origin": "https://your-origin-domain.com"
-            },
+            method: "GET"
         });
 
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        
+
         const data = await response.json(); // Clean up preambles if present
-        console.log(data);
-        
+
         searchResults = data.results;
 
         if (searchResults.length === 0) {
             searchResultsHeading.textContent = "No results found. 😕";
+            //empty results
+            resultElementsBox.innerHTML = '';
         } else {
             // Display results
             displaySearchResult(searchResults);
@@ -292,13 +284,10 @@ async function getSongsByName(songName) {
 // get by song id
 async function getSongById(songId) {
     const fullURL = `https://spotify-clone-api-theta.vercel.app/api/search?id=${encodeURIComponent(songId)}`;
-    
+
     try {
         const response = await fetch(fullURL, {
-            method: "GET",
-            headers: {
-                "origin": "https://your-origin-domain.com"
-            },
+            method: "GET"
         });
 
         if (!response.ok) {
@@ -307,7 +296,7 @@ async function getSongById(songId) {
 
         const data = await response.json();
         const song = await data.songs[0];
-        
+
         return song;
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -363,7 +352,7 @@ async function setCardsData(card, songId) {
     getSongById(songId).then(song => {
         currentSong = song;
         //cover
-        card.children[0].style.backgroundImage = `url('${currentSong.image.replace(/150x150/,'500x500')}')`;
+        card.children[0].style.backgroundImage = `url('${currentSong.image.replace(/150x150/, '500x500')}')`;
         // text
         //song name
         card.children[1].children[0].textContent = currentSong.song;
@@ -381,9 +370,9 @@ async function setCardsData(card, songId) {
 
 function playSong(currentSong) {
     const encryptedUrl = currentSong.encrypted_media_url;
-    songPlayUrl = decryptByDES(encryptedUrl,mgkey);
+    songPlayUrl = decryptByDES(encryptedUrl, mgkey);
     playingAudio.setAttribute("src", songPlayUrl);
-    nowPlayingImg.src = currentSong.image.replace(/150x150/,'500x500');//changing now playing song icon to clicked song
+    nowPlayingImg.src = currentSong.image.replace(/150x150/, '500x500');//changing now playing song icon to clicked song
     titleText.textContent = currentSong.song;//changing now playing song title to clicked song
     artistText.textContent = currentSong.primary_artists;//changing now playing song artist to clicked song
     //change to pause icon
@@ -402,16 +391,31 @@ homeCards.forEach((card, index) => {
 
 const playlistImageTest = document.querySelectorAll(".uPlaylistImg");
 let dominantColor;
-const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+// const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
 const uPlaylistBox = document.querySelectorAll(".uPlaylistBox");
-uPlaylistBox.forEach(box => {
-    const img = box.children[0];
-    img.src = proxyUrl + img.src;
-    img.onload = () => {
-        dominantColor = colorThief.getColor(img);
-        const rgbColor = `rgba(${dominantColor.join(",")},${gradientOpacity})`;
-        box.addEventListener("mouseenter", () => {
-            mainViewContainer.style.setProperty("--startColor", rgbColor);
+const songIdForPlaylist = ['e9kcJMvh', 'LKgPiSpG'];
+
+
+uPlaylistBox.forEach((box, index) => {
+    let currentSong;
+    getSongById(songIdForPlaylist[index]).then(data => {
+        currentSong = data;
+    }).then(() => {
+        const img = box.children[0];
+        img.src = currentSong.image.replace(/150x150/, '500x500');
+        box.children[1].textContent = currentSong.song;
+
+        box.addEventListener("click", () => {
+            updateRightSideBar(currentSong);
+            playSong(currentSong);
         });
-    };
+
+        img.onload = () => {
+            dominantColor = colorThief.getColor(img);
+            const rgbColor = `rgba(${dominantColor.join(",")},${gradientOpacity})`;
+            box.addEventListener("mouseenter", () => {
+                mainViewContainer.style.setProperty("--startColor", rgbColor);
+            });
+        };
+    });
 });
