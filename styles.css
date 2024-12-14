@@ -786,7 +786,7 @@ body {
 .resultElements {
     height: 50px;
     width: 95%;
-    background-color: #181818;
+    background-color: rgba(255,255,255,0.03);
     border-radius: 10px;
     display: flex;
     align-items: center;
