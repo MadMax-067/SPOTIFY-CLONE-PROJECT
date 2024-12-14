@@ -549,7 +549,9 @@ body {
 }
 
 .shelfCard {
-    height: 300px;
+    min-height: 300px;
+    /* height: 300px; */
+    height: auto;
     width: 250px;
     border-radius: 6px;
     display: flex;
@@ -614,6 +616,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    word-wrap: break-word;
 }
 
 .cardTitle {

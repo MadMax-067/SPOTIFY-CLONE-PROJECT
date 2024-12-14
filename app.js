@@ -186,7 +186,7 @@ function displaySearchResult() {
             let resultIcon = document.createElement("img"); //adding img to album box
             resultIcon.id = `resultIcon${index}`; // setting id
             resultIcon.classList.add("resultIcon"); // class for styling 
-            resultIcon.src = song.image; // getting album cover from api
+            resultIcon.src = song.image.replace(/150x150/,'500x500'); // getting album cover from api
             resultIconBox.appendChild(resultIcon); //appending image to album box
 
             let resultPlayIconBox = document.createElement("div");//creating div for storing play icon
@@ -237,7 +237,7 @@ function displaySearchResult() {
 function updateRightSideBar(song) {
     //changes to right side bar
     rightSideBarContainer.style.display = "block"; //setting it visible
-    rightSideBarContainer.style.backgroundImage = `url("${song.image}")`; // setting bg image to right side container
+    rightSideBarContainer.style.backgroundImage = `url("${song.image.replace(/150x150/,'500x500')}")`; // setting bg image to right side container
     topTitleBox.textContent = song.song;
     rightTitle.textContent = song.song;
     rightFirstArtist.textContent = song.primary_artists;
@@ -259,15 +259,13 @@ sidebarOpen.addEventListener("click", () => {
 })
 
 async function getSongsByName(songName) {
-    const fullURL = `/api/search?q=${encodeURIComponent(songName)}`;
+    const fullURL = `https://spotify-clone-api-theta.vercel.app/api/search?q=${encodeURIComponent(songName)}`;
     
     try {
         const response = await fetch(fullURL, {
             method: "GET",
             headers: {
-                "origin": "https://your-origin-domain.com",
-                "x-requested-with": "XMLHttpRequest",
-                "Access-Control-Allow-Origin": "*",
+                "origin": "https://your-origin-domain.com"
             },
         });
 
@@ -293,14 +291,13 @@ async function getSongsByName(songName) {
 }
 // get by song id
 async function getSongById(songId) {
-    const fullURL = `/api/search?id=${encodeURIComponent(songId)}`;
+    const fullURL = `https://spotify-clone-api-theta.vercel.app/api/search?id=${encodeURIComponent(songId)}`;
     
     try {
         const response = await fetch(fullURL, {
             method: "GET",
             headers: {
-                "origin": "https://your-origin-domain.com",
-                "x-requested-with": "XMLHttpRequest",
+                "origin": "https://your-origin-domain.com"
             },
         });
 
@@ -363,9 +360,15 @@ const homeCards = document.querySelectorAll(".shelfCard");
 
 async function setCardsData(card, songId) {
     let currentSong;
-
     getSongById(songId).then(song => {
         currentSong = song;
+        //cover
+        card.children[0].style.backgroundImage = `url('${currentSong.image.replace(/150x150/,'500x500')}')`;
+        // text
+        //song name
+        card.children[1].children[0].textContent = currentSong.song;
+        //artist
+        card.children[1].children[1].textContent = currentSong.primary_artists;
         card.addEventListener("click", () => {
             // card.children[0].style.backgroundImage(`url('currentSong.image')`);
             updateRightSideBar(currentSong);
@@ -380,7 +383,7 @@ function playSong(currentSong) {
     const encryptedUrl = currentSong.encrypted_media_url;
     songPlayUrl = decryptByDES(encryptedUrl,mgkey);
     playingAudio.setAttribute("src", songPlayUrl);
-    nowPlayingImg.src = currentSong.image;//changing now playing song icon to clicked song
+    nowPlayingImg.src = currentSong.image.replace(/150x150/,'500x500');//changing now playing song icon to clicked song
     titleText.textContent = currentSong.song;//changing now playing song title to clicked song
     artistText.textContent = currentSong.primary_artists;//changing now playing song artist to clicked song
     //change to pause icon
