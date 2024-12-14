@@ -27,7 +27,7 @@ const rightFirstArtist = document.getElementById("rightFirstArtist");
 const rightSecondArtist = document.getElementById("rightSecondArtist");
 const sidebarClose = document.getElementById("closeBox");
 const sidebarOpen = document.getElementById("sidebarOpen");
-
+const libItemInBox = document.getElementById("libItemInBox");
 
 // Color Thief
 const colorThief = new ColorThief();
@@ -417,5 +417,38 @@ uPlaylistBox.forEach((box, index) => {
                 mainViewContainer.style.setProperty("--startColor", rgbColor);
             });
         };
+    });
+});
+
+
+// side library
+const songIdForLib = songIdForCards;
+songIdForLib.forEach((song, index) => {
+    let currentSong;
+    //creating element for library
+    const libItem = document.createElement('div');
+    const libItemImg = document.createElement('img');
+
+    //setting id and class for styling
+    libItem.id = `libItem${index}`;
+    libItem.classList.add('libItem');
+    
+    //setting id and class for styling
+    libItemImg.id = `libItemImg${index}`;
+    libItemImg.classList.add('libItemImg');
+
+    //appending to library box
+    libItem.appendChild(libItemImg);
+    libItemInBox.appendChild(libItem);
+
+    getSongById(song).then(data => {
+        currentSong = data;
+    }).then(() => {
+        libItemImg.src = currentSong.image.replace(/150x150/, '500x500');
+
+        libItem.addEventListener("click", () => {
+            updateRightSideBar(currentSong);
+            playSong(currentSong);
+        })
     });
 });
