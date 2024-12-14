@@ -28,6 +28,7 @@ const rightSecondArtist = document.getElementById("rightSecondArtist");
 const sidebarClose = document.getElementById("closeBox");
 const sidebarOpen = document.getElementById("sidebarOpen");
 
+
 // Color Thief
 const colorThief = new ColorThief();
 //gradient primary color opacity
@@ -44,6 +45,17 @@ let progressPercentage;
 
 let currentMinutes;
 let currentSeconds;
+
+// Decrypter
+const mgkey = "38346591";
+function decryptByDES(encryptedData, key) {
+    const decrypted = CryptoJS.DES.decrypt(
+        { ciphertext: CryptoJS.enc.Base64.parse(encryptedData) },
+        CryptoJS.enc.Utf8.parse(key),
+        { mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7 }
+    );
+    return decrypted.toString(CryptoJS.enc.Utf8);
+}
 
 // Update progress visually
 playingAudio.ontimeupdate = () => {
@@ -174,7 +186,7 @@ function displaySearchResult() {
             let resultIcon = document.createElement("img"); //adding img to album box
             resultIcon.id = `resultIcon${index}`; // setting id
             resultIcon.classList.add("resultIcon"); // class for styling 
-            resultIcon.src = song.image[1].url; // getting album cover from api
+            resultIcon.src = song.image; // getting album cover from api
             resultIconBox.appendChild(resultIcon); //appending image to album box
 
             let resultPlayIconBox = document.createElement("div");//creating div for storing play icon
@@ -190,20 +202,20 @@ function displaySearchResult() {
             resultElement.appendChild(songDetailsBox); //appending to each result Box
 
             let songTitle = document.createElement("div");//creating a box for song title
-            songTitle.textContent = song.name; //getting title from api
+            songTitle.textContent = song.title; //getting title from api
             songTitle.id = `songTitle${index}`; //setting id
             songTitle.classList.add("songTitle");//class for styling
             songDetailsBox.appendChild(songTitle); // appending title to detail box
 
             let artistName = document.createElement("div");// creating a box for artist name
-            artistName.textContent = song.artists.all[0].name; //getting artist name from api
+            artistName.textContent = song.subtitle; //getting artist name from api
             artistName.id = `artistName${index}`;//setting id
             artistName.classList.add("artistName");//class for styling
             songDetailsBox.appendChild(artistName);//appending artist name to song details
 
             resultElement.addEventListener("click", () => {
                 //change to pause icon
-                songId = song.id; //setting song id to clicked song
+                songId = song.id;//setting song id to clicked song
                 let currentSong;
 
                 getSongById(songId).then(song => {
@@ -225,17 +237,15 @@ function displaySearchResult() {
 function updateRightSideBar(song) {
     //changes to right side bar
     rightSideBarContainer.style.display = "block"; //setting it visible
-    rightSideBarContainer.style.backgroundImage = `url("${song.image[2].url}")`; // setting bg image to right side container
-    topTitleBox.textContent = song.name;
-    rightTitle.textContent = song.name;
-    rightFirstArtist.textContent = song.artists.all[0].name;
-    if (song.artists.all.length > 2) {
-        rightSecondArtist.textContent = song.artists.all[2].name;
-    } else if (song.artists.all.length > 2) {
-        rightSecondArtist.textContent = song.artists.all[1].name;
-    } else {
-        rightSecondArtist.textContent = song.artists.all[0].name;
-    }
+    rightSideBarContainer.style.backgroundImage = `url("${song.image}")`; // setting bg image to right side container
+    topTitleBox.textContent = song.song;
+    rightTitle.textContent = song.song;
+    rightFirstArtist.textContent = song.primary_artists;
+    rightSecondArtist.textContent = song.featured_artists;
+    // if (song.more_info.artistMap.featured_artists.length > 0) {
+    // }else {
+    //     rightSecondArtist.textContent = song.more_info.artistMap.artists[1].name;
+    // }
 };
 
 // Right SideBar Close
@@ -249,30 +259,58 @@ sidebarOpen.addEventListener("click", () => {
 })
 
 async function getSongsByName(songName) {
-    const url = `https://saavn.dev/api/search/songs?query=${songName}`;
-    const options = { method: 'GET' };
-
+    const fullURL = `/api/search?q=${encodeURIComponent(songName)}`;
+    
     try {
-        const response = await fetch(url, options);
-        const data = await response.json();
-        searchResults = data.data.results;
+        const response = await fetch(fullURL, {
+            method: "GET",
+            headers: {
+                "origin": "https://your-origin-domain.com",
+                "x-requested-with": "XMLHttpRequest",
+                "Access-Control-Allow-Origin": "*",
+            },
+        });
 
-        //calling function to display results
-        displaySearchResult();
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        
+        const data = await response.json(); // Clean up preambles if present
+        console.log(data);
+        
+        searchResults = data.results;
+
+        if (searchResults.length === 0) {
+            searchResultsHeading.textContent = "No results found. 😕";
+        } else {
+            // Display results
+            displaySearchResult(searchResults);
+        }
     } catch (error) {
-        console.error(error);
-        searchResultsHeading.textContent = "Something seems wrong!😣";
+        console.error("Error fetching songs:", error);
+        searchResultsHeading.textContent = "Something seems wrong! 😣";
     }
 }
 
 async function getSongById(songId) {
-    const url = `https://saavn.dev/api/songs/${songId}`;
-    const options = { method: 'GET' };
-
+    const fullURL = `/api/search?id=${encodeURIComponent(songId)}`;
+    
     try {
-        const response = await fetch(url, options);
+        const response = await fetch(fullURL, {
+            method: "GET",
+            headers: {
+                "origin": "https://your-origin-domain.com",
+                "x-requested-with": "XMLHttpRequest",
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
         const data = await response.json();
-        const song = await data.data[0];
+        const song = await data.songs[0];
+        
         return song;
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -328,9 +366,8 @@ async function setCardsData(card, songId) {
 
     getSongById(songId).then(song => {
         currentSong = song;
-        console.log(currentSong);
-        
         card.addEventListener("click", () => {
+            // card.children[0].style.backgroundImage(`url('currentSong.image')`);
             updateRightSideBar(currentSong);
             playSong(currentSong);
         });
@@ -340,11 +377,12 @@ async function setCardsData(card, songId) {
 };
 
 function playSong(currentSong) {
-    songPlayUrl = currentSong.downloadUrl[4].url;
+    const encryptedUrl = currentSong.encrypted_media_url;
+    songPlayUrl = decryptByDES(encryptedUrl,mgkey);
     playingAudio.setAttribute("src", songPlayUrl);
-    nowPlayingImg.src = currentSong.image[2].url;//changing now playing song icon to clicked song
-    titleText.textContent = currentSong.name;//changing now playing song title to clicked song
-    artistText.textContent = currentSong.artists.all[0].name;//changing now playing song artist to clicked song
+    nowPlayingImg.src = currentSong.image;//changing now playing song icon to clicked song
+    titleText.textContent = currentSong.song;//changing now playing song title to clicked song
+    artistText.textContent = currentSong.primary_artists;//changing now playing song artist to clicked song
     //change to pause icon
     playCircle.innerHTML = '<svg id="playIcon" role="img" aria-hidden="true" viewBox="0 0 16 16" class="playIcon"><path d="M2.7 1a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7H2.7zm8 0a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7h-2.6z"></path></svg>';
     playingAudio.play();
