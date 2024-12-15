@@ -391,7 +391,6 @@ homeCards.forEach((card, index) => {
 
 const playlistImageTest = document.querySelectorAll(".uPlaylistImg");
 let dominantColor;
-// const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
 const uPlaylistBox = document.querySelectorAll(".uPlaylistBox");
 const songIdForPlaylist = ['e9kcJMvh', 'LKgPiSpG'];
 

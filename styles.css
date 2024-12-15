@@ -9,7 +9,6 @@
 
 html,
 body {
-    height: 100%;
     background-color: #000000;
     color: #ffffff;
 }
@@ -1139,4 +1138,68 @@ body {
 .volumeInput {
     height: 4px;
     width: 93px;
+}
+
+
+/* for Mobile Devices */
+@media screen and (max-width: 768px) {
+
+
+
+
+    .generalControlsBox,
+    .nowPlayingBox,
+    .navSearchBox {
+        width: auto;
+    }
+
+    .searchInput{
+        width: 50px;
+    }
+
+    .navMain {
+        justify-content: center;
+        column-gap: 8px;
+        width: auto;
+    }
+
+
+    .bothControls,
+    .hideBox,
+    .addSongBox,
+    .otherControlsBox {
+        display: none;
+    }
+
+    .playerControlsBox {
+        width: 100%;
+    }
+
+    .playerContainer {
+        justify-content: space-between;
+        column-gap: 10px;
+    }
+
+    .playerControlsBox {
+        flex-direction: row;
+        justify-content: flex-start;
+        column-gap: 10px;
+        width: 50%;
+    }
+
+    .rightSideBarContainer {
+        display: none !important;
+    }
+
+    .progressBarBox {
+        width: 100%;
+    }
+
+    .track {
+        width: 100%;
+    }
+
+    .main {
+        height: 92vh;
+    }
 }
