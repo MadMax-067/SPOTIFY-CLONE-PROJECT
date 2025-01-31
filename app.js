@@ -283,6 +283,7 @@ async function getSongsByName(songName) {
 // get by song id
 async function getSongById(songId) {
     const fullURL = `https://saavnapi-rho.vercel.app/api/songs/${encodeURIComponent(songId)}`;
+    // api update
     try {
         const response = await fetch(fullURL, {
             method: "GET"
