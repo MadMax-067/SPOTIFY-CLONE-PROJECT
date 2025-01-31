@@ -181,7 +181,7 @@ function displaySearchResult() {
         let resultIcon = document.createElement("img"); //adding img to album box
         resultIcon.id = `resultIcon${index}`; // setting id
         resultIcon.classList.add("resultIcon"); // class for styling 
-        resultIcon.src = song.image.replace(/150x150/, '500x500'); // getting album cover from api
+        resultIcon.src = song.image[2].url; // getting album cover from api
         resultIconBox.appendChild(resultIcon); //appending image to album box
 
         let resultPlayIconBox = document.createElement("div");//creating div for storing play icon
@@ -197,13 +197,13 @@ function displaySearchResult() {
         resultElement.appendChild(songDetailsBox); //appending to each result Box
 
         let songTitle = document.createElement("div");//creating a box for song title
-        songTitle.textContent = song.title; //getting title from api
+        songTitle.textContent = song.name; //getting title from api
         songTitle.id = `songTitle${index}`; //setting id
         songTitle.classList.add("songTitle");//class for styling
         songDetailsBox.appendChild(songTitle); // appending title to detail box
 
         let artistName = document.createElement("div");// creating a box for artist name
-        artistName.textContent = song.subtitle; //getting artist name from api
+        artistName.textContent = song.artists.primary[0].name; //getting artist name from api
         artistName.id = `artistName${index}`;//setting id
         artistName.classList.add("artistName");//class for styling
         songDetailsBox.appendChild(artistName);//appending artist name to song details
@@ -231,11 +231,11 @@ function displaySearchResult() {
 function updateRightSideBar(song) {
     //changes to right side bar
     rightSideBarContainer.style.display = "block"; //setting it visible
-    rightSideBarContainer.style.backgroundImage = `url("${song.image.replace(/150x150/, '500x500')}")`; // setting bg image to right side container
-    topTitleBox.textContent = song.song;
-    rightTitle.textContent = song.song;
-    rightFirstArtist.textContent = song.primary_artists;
-    rightSecondArtist.textContent = song.featured_artists;
+    rightSideBarContainer.style.backgroundImage = `url("${song.image[2].url}")`; // setting bg image to right side container
+    topTitleBox.textContent = song.name;
+    rightTitle.textContent = song.name;
+    rightFirstArtist.textContent = song.artists.primary[0].name;
+    rightSecondArtist.textContent = song.artists.featured?.[0]?.name || "";
     // if (song.more_info.artistMap.featured_artists.length > 0) {
     // }else {
     //     rightSecondArtist.textContent = song.more_info.artistMap.artists[1].name;
@@ -253,7 +253,7 @@ sidebarOpen.addEventListener("click", () => {
 })
 
 async function getSongsByName(songName) {
-    const fullURL = `https://spotify-clone-api-theta.vercel.app/api/search?q=${encodeURIComponent(songName)}`;
+    const fullURL = `https://saavnapi-rho.vercel.app/api/search/songs?query=${encodeURIComponent(songName)}`;
 
     try {
         const response = await fetch(fullURL, {
@@ -266,8 +266,7 @@ async function getSongsByName(songName) {
 
         const data = await response.json(); // Clean up preambles if present
 
-        searchResults = data.results;
-
+        searchResults = data.data.results;
         if (searchResults.length === 0) {
             searchResultsHeading.textContent = "No results found. 😕";
             //empty results
@@ -283,8 +282,7 @@ async function getSongsByName(songName) {
 }
 // get by song id
 async function getSongById(songId) {
-    const fullURL = `https://spotify-clone-api-theta.vercel.app/api/search?id=${encodeURIComponent(songId)}`;
-
+    const fullURL = `https://saavnapi-rho.vercel.app/api/songs/${encodeURIComponent(songId)}`;
     try {
         const response = await fetch(fullURL, {
             method: "GET"
@@ -295,7 +293,7 @@ async function getSongById(songId) {
         }
 
         const data = await response.json();
-        const song = await data.songs[0];
+        const song = await data.data[0];
 
         return song;
     } catch (error) {
@@ -352,12 +350,12 @@ async function setCardsData(card, songId) {
     getSongById(songId).then(song => {
         currentSong = song;
         //cover
-        card.children[0].style.backgroundImage = `url('${currentSong.image.replace(/150x150/, '500x500')}')`;
+        card.children[0].style.backgroundImage = `url('${currentSong.image[2].url}')`;
         // text
         //song name
-        card.children[1].children[0].textContent = currentSong.song;
+        card.children[1].children[0].textContent = currentSong.name;
         //artist
-        card.children[1].children[1].textContent = currentSong.primary_artists;
+        card.children[1].children[1].textContent = currentSong.artists.primary[0].name;
         card.addEventListener("click", () => {
             // card.children[0].style.backgroundImage(`url('currentSong.image')`);
             updateRightSideBar(currentSong);
@@ -369,12 +367,12 @@ async function setCardsData(card, songId) {
 };
 
 function playSong(currentSong) {
-    const encryptedUrl = currentSong.encrypted_media_url;
-    songPlayUrl = decryptByDES(encryptedUrl, mgkey);
+    // const encryptedUrl = currentSong.encrypted_media_url;
+    songPlayUrl = currentSong.downloadUrl[4].url;
     playingAudio.setAttribute("src", songPlayUrl);
-    nowPlayingImg.src = currentSong.image.replace(/150x150/, '500x500');//changing now playing song icon to clicked song
-    titleText.textContent = currentSong.song;//changing now playing song title to clicked song
-    artistText.textContent = currentSong.primary_artists;//changing now playing song artist to clicked song
+    nowPlayingImg.src = currentSong.image[2].url;//changing now playing song icon to clicked song
+    titleText.textContent = currentSong.name;//changing now playing song title to clicked song
+    artistText.textContent = currentSong.artists.primary[0].name;//changing now playing song artist to clicked song
     //change to pause icon
     playCircle.innerHTML = '<svg id="playIcon" role="img" aria-hidden="true" viewBox="0 0 16 16" class="playIcon"><path d="M2.7 1a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7H2.7zm8 0a.7.7 0 0 0-.7.7v12.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V1.7a.7.7 0 0 0-.7-.7h-2.6z"></path></svg>';
     playingAudio.play();
@@ -401,8 +399,8 @@ uPlaylistBox.forEach((box, index) => {
         currentSong = data;
     }).then(() => {
         const img = box.children[0];
-        img.src = currentSong.image.replace(/150x150/, '500x500');
-        box.children[1].textContent = currentSong.song;
+        img.src = currentSong.image[2].url;
+        box.children[1].textContent = currentSong.name;
 
         box.addEventListener("click", () => {
             updateRightSideBar(currentSong);
@@ -431,7 +429,7 @@ songIdForLib.forEach((song, index) => {
     //setting id and class for styling
     libItem.id = `libItem${index}`;
     libItem.classList.add('libItem');
-    
+
     //setting id and class for styling
     libItemImg.id = `libItemImg${index}`;
     libItemImg.classList.add('libItemImg');
@@ -443,7 +441,7 @@ songIdForLib.forEach((song, index) => {
     getSongById(song).then(data => {
         currentSong = data;
     }).then(() => {
-        libItemImg.src = currentSong.image.replace(/150x150/, '500x500');
+        libItemImg.src = currentSong.image[2].url;
 
         libItem.addEventListener("click", () => {
             updateRightSideBar(currentSong);
